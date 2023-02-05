@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 11265503}
   - component: {fileID: 11265502}
   m_Layer: 0
-  m_Name: ground (4)
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11265501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1227,9 +1227,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddaf9429bcd184d4ebc86aca2c74f969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 696710170}
+  test:
+  - {fileID: 1991559121}
+  - {fileID: 11265501}
   lineRenderer: {fileID: 878683784}
   distanceJoint: {fileID: 878683783}
+  grappleTimer: 3
 --- !u!1 &1218250999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1582,7 @@ GameObject:
   - component: {fileID: 1991559123}
   - component: {fileID: 1991559122}
   m_Layer: 0
-  m_Name: ground (1)
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1671,7 +1674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991559121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -3.5, z: 0}
+  m_LocalPosition: {x: -5, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

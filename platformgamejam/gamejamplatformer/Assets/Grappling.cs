@@ -5,33 +5,63 @@ using UnityEngine;
 
 public class Grappling : MonoBehaviour
 {
-    public GameObject test;
+    public List<GameObject> test;
+    GameObject test1;
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
+    [SerializeField] float grappleTimer = 3f;
+    float initialTimer;
+    bool isGrappling;
 
     private void Start()
     {
         distanceJoint.enabled = false;
+        initialTimer = grappleTimer;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)) 
+        foreach(var gObject in test)
         {
-            lineRenderer.SetPosition(0, test.transform.position);
-            lineRenderer.SetPosition(1, transform.position);
-            distanceJoint.connectedAnchor = test.transform.position;
-            distanceJoint.enabled = true;
-            lineRenderer.enabled = true;
+            var dist = Vector2.Distance(transform.position, gObject.transform.position);
+            if(dist < 4)
+            {
+                test1 = gObject;
+            }
         }
-        else if(Input.GetMouseButtonUp(0))
+        if (isGrappling)
+        {
+            grappleTimer -= Time.deltaTime;
+        }
+        if (ShouldGrapple())
+        {
+            Grapple();
+        }
+        if (Input.GetMouseButtonUp(0) || grappleTimer <= 0)
         {
             distanceJoint.enabled = false;
-            lineRenderer.enabled= false;
+            lineRenderer.enabled = false;
+            isGrappling = false;
+            grappleTimer = initialTimer;
         }
-        if(distanceJoint.enabled)
+        if (distanceJoint.enabled)
         {
             lineRenderer.SetPosition(1, transform.position);
         }
+    }
+
+    void Grapple()
+    {
+        lineRenderer.SetPosition(0, test1.transform.position);
+        lineRenderer.SetPosition(1, transform.position);
+        distanceJoint.connectedAnchor = test1.transform.position;
+        distanceJoint.enabled = true;
+        lineRenderer.enabled = true;
+        isGrappling = true;
+    }
+
+    bool ShouldGrapple()
+    {
+        return Input.GetMouseButtonDown(0) && grappleTimer > 0 && test1 != null;
     }
 }
