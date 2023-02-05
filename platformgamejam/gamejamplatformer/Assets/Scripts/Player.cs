@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] float acceleration = 1f;
     [SerializeField] float speed = 1f;
     [SerializeField] float jumpVelocity = 1f;
+    [SerializeField] float downPull = 1f;
     [SerializeField] Transform feet;
 
     new Rigidbody2D rigidbody;
@@ -21,7 +22,9 @@ public class Player : MonoBehaviour
     bool isGrounded;
     int layerMask;
     int jumpsRemaining = 1;
-
+    bool falling = false;
+    float fallTimer;
+    
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -39,16 +42,32 @@ public class Player : MonoBehaviour
         MoveHorizontal();
         UpdateAnimator();
         FlipDirection();
+        isFalling();
         if (ShouldStartJump() && isGrounded)
         {
             Jump();
         }
-        if (isGrounded)
+        if (isGrounded && fallTimer > 0)
         {
-            Debug.Log("is grounded");
+            falling = false;
+            fallTimer = 0;
             jumpsRemaining = 1;
         }
+        else
+        {
+            fallTimer = Time.deltaTime;
+            var downForce = downPull * fallTimer * fallTimer;
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y - downForce);
+        }
       
+    }
+
+    void isFalling()
+    {
+        if(rigidbody.velocity.y < -1f) 
+        {
+            falling = true;
+        }
     }
 
     void FlipDirection()
@@ -60,6 +79,8 @@ public class Player : MonoBehaviour
     {
         bool walking = horizontal != 0;
         animation.SetBool("Walk", walking);
+        animation.SetBool("Jump", !isGrounded && !falling);
+        animation.SetBool("Fall", falling);
     }
 
     void Jump()
