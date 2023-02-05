@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Grappling : MonoBehaviour
 {
+    [SerializeField] float grappleTimer = 3f;
+    [SerializeField] float maxDist = 4f;
+
     public List<GameObject> test;
     GameObject test1;
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
-    [SerializeField] float grappleTimer = 3f;
     float initialTimer;
     bool isGrappling;
 
@@ -21,10 +23,10 @@ public class Grappling : MonoBehaviour
 
     private void Update()
     {
-        foreach(var gObject in test)
+        foreach (var gObject in test)
         {
             var dist = Vector2.Distance(transform.position, gObject.transform.position);
-            if(dist < 4)
+            if (dist < maxDist)
             {
                 test1 = gObject;
             }
@@ -37,17 +39,27 @@ public class Grappling : MonoBehaviour
         {
             Grapple();
         }
-        if (Input.GetMouseButtonUp(0) || grappleTimer <= 0)
+        if (ShouldntGrapple())
         {
-            distanceJoint.enabled = false;
-            lineRenderer.enabled = false;
-            isGrappling = false;
-            grappleTimer = initialTimer;
+            DontGrapple();
         }
         if (distanceJoint.enabled)
         {
             lineRenderer.SetPosition(1, transform.position);
         }
+    }
+
+    private void DontGrapple()
+    {
+        distanceJoint.enabled = false;
+        lineRenderer.enabled = false;
+        isGrappling = false;
+        grappleTimer = initialTimer;
+    }
+
+    private bool ShouldntGrapple()
+    {
+        return Input.GetMouseButtonUp(0) || grappleTimer <= 0;
     }
 
     void Grapple()
