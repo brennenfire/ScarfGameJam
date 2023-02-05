@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         MoveHorizontal();
         UpdateAnimator();
         FlipDirection();
-        isFalling();
+        IsFalling();
         if (ShouldStartJump() && isGrounded)
         {
             Jump();
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
       
     }
 
-    void isFalling()
+    void IsFalling()
     {
         if(rigidbody.velocity.y < -1f) 
         {
