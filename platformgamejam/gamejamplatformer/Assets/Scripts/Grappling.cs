@@ -8,21 +8,26 @@ public class Grappling : MonoBehaviour
     [SerializeField] float grappleTimer = 3f;
     [SerializeField] float maxDist = 4f;
 
+    Animator animation;
     public List<GameObject> test;
     GameObject test1;
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
     float initialTimer;
-    bool isGrappling;
+    public bool isGrappling;
 
-    private void Start()
+    public bool IsGrappling => isGrappling;
+
+    void Start()
     {
         distanceJoint.enabled = false;
         initialTimer = grappleTimer;
+        animation = GetComponent<Animator>();
     }
 
-    private void Update()
+    void Update()
     {
+        animation.SetBool("Swing", isGrappling);
         foreach (var gObject in test)
         {
             var dist = Vector2.Distance(transform.position, gObject.transform.position);

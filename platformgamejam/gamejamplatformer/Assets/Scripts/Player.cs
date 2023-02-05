@@ -77,10 +77,11 @@ public class Player : MonoBehaviour
 
     void UpdateAnimator()
     {
+        var grapple = GetComponent<Grappling>();
         bool walking = horizontal != 0;
         animation.SetBool("Walk", walking);
-        animation.SetBool("Jump", !isGrounded && !falling);
-        animation.SetBool("Fall", falling);
+        animation.SetBool("Jump", !isGrounded && !falling && !grapple.isGrappling);
+        animation.SetBool("Fall", falling && !grapple.isGrappling);
     }
 
     void Jump()
