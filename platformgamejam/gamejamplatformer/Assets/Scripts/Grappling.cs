@@ -8,7 +8,7 @@ public class Grappling : MonoBehaviour
     [SerializeField] float grappleTimer = 3f;
     [SerializeField] float maxDist = 4f;
 
-    Animator animation;
+    new Animator animation;
     public List<GameObject> test;
     GameObject test1;
     public LineRenderer lineRenderer;

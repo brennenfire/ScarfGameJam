@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     new Rigidbody2D rigidbody;
     new Animator animation;
     SpriteRenderer spriteRenderer;
+    Vector2 startingPosition;
     string readHorizontal;
     string jumpButton;
     string attackButton;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
         readHorizontal = $"PHorizontal";
         jumpButton = $"PJump";
         layerMask = LayerMask.GetMask("Default");
+        startingPosition = transform.position;
     }
 
     void Update()
@@ -110,5 +112,10 @@ public class Player : MonoBehaviour
     {
         var hit = Physics2D.OverlapCircle(feet.position, 0.1f, layerMask);
         isGrounded = hit != null;
+    }
+
+    public void ResetToStart()
+    {
+        transform.position = startingPosition;
     }
 }
