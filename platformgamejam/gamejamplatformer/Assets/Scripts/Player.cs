@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] Transform feet;
 
     new Rigidbody2D rigidbody;
+    new Animator animation;
+    SpriteRenderer spriteRenderer;
     string readHorizontal;
     string jumpButton;
     string attackButton;
@@ -22,6 +25,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        animation = GetComponent<Animator>();
+        spriteRenderer= GetComponent<SpriteRenderer>();
         readHorizontal = $"PHorizontal";
         jumpButton = $"PJump";
         layerMask = LayerMask.GetMask("Default");
@@ -32,6 +37,8 @@ public class Player : MonoBehaviour
         UpdateIsGrounded();
         ReadHorizontalInput();
         MoveHorizontal();
+        UpdateAnimator();
+        FlipDirection();
         if (ShouldStartJump() && isGrounded)
         {
             Jump();
@@ -42,6 +49,17 @@ public class Player : MonoBehaviour
             jumpsRemaining = 1;
         }
       
+    }
+
+    void FlipDirection()
+    {
+        spriteRenderer.flipX = horizontal < 0;
+    }
+
+    void UpdateAnimator()
+    {
+        bool walking = horizontal != 0;
+        animation.SetBool("Walk", walking);
     }
 
     void Jump()
@@ -64,6 +82,7 @@ public class Player : MonoBehaviour
         float smoothnessMultiplier = horizontal == 0 ? decceleration : acceleration;
         float newHorizontal = Mathf.Lerp(rigidbody.velocity.x, horizontal * speed, Time.deltaTime * smoothnessMultiplier);
         rigidbody.velocity = new Vector2(newHorizontal, rigidbody.velocity.y);
+        
     }
     void UpdateIsGrounded()
     {
