@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
         animation.SetBool("Walk", walking);
         animation.SetBool("Jump", !isGrounded && !falling && !grapple.isGrappling);
         animation.SetBool("Fall", falling && !grapple.isGrappling);
+        animation.SetBool("JumpWindup", ShouldStartJump());
     }
 
     void Jump()
