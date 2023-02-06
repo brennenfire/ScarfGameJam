@@ -31,7 +31,8 @@ public class Grappling : MonoBehaviour
         foreach (var gObject in test)
         {
             var dist = Vector2.Distance(transform.position, gObject.transform.position);
-            if (dist < maxDist)
+            var isBelow = (gObject.transform.position.y - transform.position.y) > 0;
+            if (dist < maxDist && isBelow)
             {
                 test1 = gObject;
             }
@@ -79,6 +80,9 @@ public class Grappling : MonoBehaviour
 
     bool ShouldGrapple()
     {
-        return Input.GetMouseButtonDown(0) && grappleTimer > 0 && test1 != null;
+        return Input.GetMouseButtonDown(0)
+            && grappleTimer > 0
+            && test1 != null
+            && Vector2.Distance(transform.position, test1.transform.position) < maxDist;
     }
 }
