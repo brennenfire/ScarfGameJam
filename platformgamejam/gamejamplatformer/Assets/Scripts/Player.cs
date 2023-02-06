@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     {
         var grapple = GetComponent<Grappling>();
         bool walking = horizontal != 0;
-        animation.SetBool("Walk", walking);
+        animation.SetBool("Walk", walking && isGrounded);
         animation.SetBool("Jump", !isGrounded && !falling && !grapple.isGrappling);
         animation.SetBool("Fall", falling && !grapple.isGrappling);
         animation.SetBool("JumpWindup", ShouldStartJump());
