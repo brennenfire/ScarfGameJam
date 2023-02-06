@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     new Rigidbody2D rigidbody;
     new Animator animation;
     SpriteRenderer spriteRenderer;
-    Vector2 startingPosition;
+    public Vector2 startingPosition;
     string readHorizontal;
     string jumpButton;
     string attackButton;
@@ -25,7 +25,9 @@ public class Player : MonoBehaviour
     int jumpsRemaining = 1;
     bool falling = false;
     float fallTimer;
-    
+
+    public Vector2 StartingPosition => startingPosition;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
