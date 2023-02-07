@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         Debug.Log("walljump");
         if (Input.GetButtonDown(jumpButton))
         {
-            rigidbody.velocity = new Vector2(-horizontal * jumpVelocity, jumpVelocity * 1.5f);
+            rigidbody.velocity = new Vector2(-horizontal * jumpVelocity, jumpVelocity * 1f);
 
         }
    }

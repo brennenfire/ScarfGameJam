@@ -111,6 +111,68 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1016559576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016559577}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1016559577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016559576}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.7, y: -0.57, z: 0.10410656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3544979274452593121}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1208644694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1208644695}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1208644695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208644694}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.62, y: -0.45, z: 0.10410656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3544979274452593121}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2123784237
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +243,8 @@ Transform:
   - {fileID: 3544979275069169563}
   - {fileID: 373018849}
   - {fileID: 2123784238}
+  - {fileID: 1016559577}
+  - {fileID: 1208644695}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -250,10 +314,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decceleration: 5
   acceleration: 5
+  airBreaking: 5
+  airAcceleration: 5
   speed: 2
   jumpVelocity: 7
-  downPull: 1.5
+  downPull: 10
+  boostMultiplier: 5
   feet: {fileID: 3544979275069169563}
+  leftSensor: {fileID: 1016559577}
+  rightSensor: {fileID: 1208644695}
   startingPosition: {x: 0, y: 0}
 --- !u!50 &3544979274452593120
 Rigidbody2D:
@@ -322,18 +391,20 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.62, y: -0.96}
-      - {x: 0.6108595, y: 0.18515752}
-      - {x: 0.5, y: 0.85999995}
-      - {x: -0.17, y: 0.85999995}
-      - {x: -0.21867979, y: 0.18719113}
-      - {x: -0.2018879, y: -0.12366839}
-      - {x: -0.2293089, y: -0.34343803}
-      - {x: -0.2037526, y: -0.47140443}
+      - {x: 0.48791313, y: -0.81636333}
+      - {x: 0.49713862, y: 0.17640994}
+      - {x: 0.49305153, y: 0.87389785}
+      - {x: -0.20474426, y: 0.8669489}
+      - {x: -0.16940439, y: 0.2463218}
+      - {x: -0.1408003, y: 0.007904336}
+      - {x: -0.14183122, y: -0.38315284}
+      - {x: -0.14094648, y: -0.5865339}
       - {x: -0.1520336, y: -0.61}
       - {x: -0.14, y: -0.96}
       - {x: 0.14, y: -0.96}
-      - {x: 0.16, y: -0.83}
-      - {x: 0.34, y: -0.62}
+      - {x: -0.014955372, y: -0.8212524}
+      - {x: 0.028990746, y: -0.61240005}
+      - {x: 0.34, y: -0.6025044}
       - {x: 0.34, y: -0.96}
 --- !u!114 &3544979274452593130
 MonoBehaviour:
@@ -351,6 +422,14 @@ MonoBehaviour:
   maxDist: 4
   scarf: {fileID: 2123784238}
   test:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -452,7 +531,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
-    shadowBias: 0.5
+    shadowBias: 0
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
@@ -470,10 +549,10 @@ DistanceJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0.16404152, y: -0.36844444}
+  m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: -26.33196, y: -2.751877}
   m_AutoConfigureDistance: 1
-  m_Distance: 43.71472
+  m_Distance: 38.06225
   m_MaxDistanceOnly: 0
 --- !u!1 &3544979275069169556
 GameObject:
