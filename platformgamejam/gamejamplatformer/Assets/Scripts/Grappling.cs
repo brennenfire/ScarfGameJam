@@ -62,6 +62,7 @@ public class Grappling : MonoBehaviour
         lineRenderer.enabled = false;
         isGrappling = false;
         grappleTimer = initialTimer;
+        test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private bool ShouldntGrapple()
@@ -77,6 +78,7 @@ public class Grappling : MonoBehaviour
         distanceJoint.enabled = true;
         lineRenderer.enabled = true;
         isGrappling = true;
+        test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = true;
     }
 
     bool ShouldGrapple()
