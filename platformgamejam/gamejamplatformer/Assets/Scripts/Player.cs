@@ -7,10 +7,14 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float decceleration = 1f;
     [SerializeField] float acceleration = 1f;
+    [SerializeField] float airBreaking = 1f;
+    [SerializeField] float airAcceleration = 1f;
     [SerializeField] float speed = 1f;
     [SerializeField] float jumpVelocity = 1f;
     [SerializeField] float downPull = 1f;
     [SerializeField] Transform feet;
+    [SerializeField] Transform leftSensor;
+    [SerializeField] Transform rightSensor;
 
     new Rigidbody2D rigidbody;
     new Animator animation;
@@ -18,14 +22,14 @@ public class Player : MonoBehaviour
     public Vector2 startingPosition;
     string readHorizontal;
     string jumpButton;
-    string attackButton;
+    string climbButton;
     float horizontal;
     bool isGrounded;
     int layerMask;
     int jumpsRemaining = 1;
     bool falling = false;
     float fallTimer;
-
+   
     public Vector2 StartingPosition => startingPosition;
 
     void Start()
@@ -35,6 +39,7 @@ public class Player : MonoBehaviour
         spriteRenderer= GetComponent<SpriteRenderer>();
         readHorizontal = $"PHorizontal";
         jumpButton = $"PJump";
+        climbButton = $"PClimb";
         layerMask = LayerMask.GetMask("Default");
         startingPosition = transform.position;
     }
@@ -47,6 +52,10 @@ public class Player : MonoBehaviour
         UpdateAnimator();
         FlipDirection();
         IsFalling();
+        if(ShouldClimb()) 
+        {
+            WallClimb();
+        }
         if (ShouldStartJump() && isGrounded)
         {
             Jump();
@@ -64,6 +73,11 @@ public class Player : MonoBehaviour
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y - downForce);
         }
       
+    }
+
+    private void WallClimb()
+    {
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, 5);
     }
 
     void IsFalling()
@@ -111,10 +125,51 @@ public class Player : MonoBehaviour
     void MoveHorizontal()
     {
         float smoothnessMultiplier = horizontal == 0 ? decceleration : acceleration;
+        if (isGrounded == false)
+        {
+            smoothnessMultiplier = horizontal == 0 ? airBreaking : airAcceleration;
+        }
         float newHorizontal = Mathf.Lerp(rigidbody.velocity.x, horizontal * speed, Time.deltaTime * smoothnessMultiplier);
         rigidbody.velocity = new Vector2(newHorizontal, rigidbody.velocity.y);
         
     }
+    bool ShouldClimb()
+    {
+        var input = Input.GetButtonDown(climbButton);
+
+        if (input)
+        {
+            if (isGrounded)
+            {
+                return false;
+            }
+
+            if (rigidbody.velocity.y > 0)
+            {
+                return false;
+            }
+
+            if (horizontal < 0)
+            {
+                var hit = Physics2D.OverlapCircle(leftSensor.position, 0.1f);
+                if (hit != false && hit.CompareTag("Wall"))
+                {
+                    return true;
+                }
+            }
+            if (horizontal > 0)
+            {
+                var hit = Physics2D.OverlapCircle(rightSensor.position, 0.1f);
+                if (hit != false && hit.CompareTag("Wall"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     void UpdateIsGrounded()
     {
         var hit = Physics2D.OverlapCircle(feet.position, 0.1f, layerMask);
