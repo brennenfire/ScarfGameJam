@@ -27,18 +27,19 @@ public class Player : MonoBehaviour
     string boostButton;
     string wallJump;
     float horizontal;
+    float fallTimer;
     bool isGrounded;
     int layerMask;
     int jumpsRemaining = 1;
     bool falling = false;
-    float fallTimer;
     bool boost;
-   
+    bool canWallJump = false;
+    int boostCounter = 1;
+
     public Vector2 StartingPosition => startingPosition;
 
     void Start()
     {
-
         rigidbody = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
         spriteRenderer= GetComponent<SpriteRenderer>();
@@ -62,9 +63,13 @@ public class Player : MonoBehaviour
         ShouldBoost();
         if(ShouldClimb()) 
         {
+            if(canWallJump) 
+            {
+                WallJump();
+            }
             WallClimb();
         }
-        if (ShouldStartJump() && isGrounded)
+        if (ShouldStartJump())
         {
             Jump();
         }
@@ -84,14 +89,19 @@ public class Player : MonoBehaviour
     }
 
    void WallJump()
-    {
-        
-    }
+   {
+        Debug.Log("walljump");
+        if (Input.GetButtonDown(jumpButton))
+        {
+            rigidbody.velocity = new Vector2(-horizontal * jumpVelocity, jumpVelocity * 1.5f);
 
-    private void ShouldBoost()
+        }
+   }
+
+    void ShouldBoost()
     {
         var grapple = GetComponent<Grappling>();
-        if (grapple.isGrappling && Input.GetButtonDown(boostButton))
+        if (grapple.isGrappling && Input.GetButtonDown(boostButton) && boostCounter == 1)
         {
             boost = true;
         }
@@ -103,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void WallClimb()
     {
-        rigidbody.velocity = new Vector2(rigidbody.velocity.x, 5);
+        //rigidbody.velocity = new Vector2(rigidbody.velocity.x, 5);
     }
 
     void IsFalling()
@@ -126,7 +136,7 @@ public class Player : MonoBehaviour
         animation.SetBool("Walk", walking && isGrounded);
         animation.SetBool("Jump", !isGrounded && !falling && !grapple.isGrappling);
         animation.SetBool("Fall", falling && !grapple.isGrappling);
-        animation.SetBool("JumpWindup", ShouldStartJump());
+        //animation.SetBool("JumpWindup", ShouldStartJump());
     }
 
     void Jump()
@@ -163,15 +173,27 @@ public class Player : MonoBehaviour
         else
         {
             rigidbody.velocity = new Vector2(newHorizontal * boostMultiplier, rigidbody.velocity.y);
+            boostCounter--;
+            StartCoroutine(WaitForRefresh());
         }
         
     }
+
+    
+    IEnumerator WaitForRefresh()
+    {
+        yield return new WaitForSeconds(0.5f);
+        boostCounter++;
+    }
+   
+
     bool ShouldClimb()
     {
+        canWallJump = true;
         var input = Input.GetButtonDown(climbButton);
 
-        if (input)
-        {
+        //if (input)
+        //{
             if (isGrounded)
             {
                 return false;
@@ -199,8 +221,9 @@ public class Player : MonoBehaviour
                 }
             }
             return false;
-        }
-        return false;
+
+        //}
+        //return false;
     }
 
     void UpdateIsGrounded()
