@@ -92,6 +92,10 @@ public class Player : MonoBehaviour
     void Jump()
     {
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpVelocity);
+        if(horizontal < 0)
+        {
+            transform.GetComponent<Collider2D>().offset += Vector2.right;
+        }
         jumpsRemaining--;
     }
 
@@ -121,5 +125,4 @@ public class Player : MonoBehaviour
     {
         transform.position = startingPosition;
     }
-
 }
