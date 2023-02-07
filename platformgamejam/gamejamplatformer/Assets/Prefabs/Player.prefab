@@ -219,9 +219,10 @@ MonoBehaviour:
   decceleration: 5
   acceleration: 5
   speed: 2
-  jumpVelocity: 7.5
+  jumpVelocity: 7
   downPull: 1.5
   feet: {fileID: 3544979275069169563}
+  startingPosition: {x: 0, y: 0}
 --- !u!50 &3544979274452593120
 Rigidbody2D:
   serializedVersion: 4
@@ -437,9 +438,9 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -3.0429897, y: -0.6256615}
+  m_ConnectedAnchor: {x: -59, y: -3.5}
   m_AutoConfigureDistance: 1
-  m_Distance: 4.398147
+  m_Distance: 11.075018
   m_MaxDistanceOnly: 0
 --- !u!1 &3544979275069169556
 GameObject:

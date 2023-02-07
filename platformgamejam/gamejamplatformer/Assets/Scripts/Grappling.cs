@@ -7,6 +7,7 @@ public class Grappling : MonoBehaviour
 {
     [SerializeField] float grappleTimer = 3f;
     [SerializeField] float maxDist = 4f;
+    [SerializeField] Transform scarf;
 
     new Animator animation;
     public List<GameObject> test;
@@ -51,7 +52,7 @@ public class Grappling : MonoBehaviour
         }
         if (distanceJoint.enabled)
         {
-            lineRenderer.SetPosition(1, transform.position);
+            lineRenderer.SetPosition(1, scarf.position + Vector3.down);
         }
     }
 
@@ -70,8 +71,8 @@ public class Grappling : MonoBehaviour
 
     void Grapple()
     {
-        lineRenderer.SetPosition(0, test1.transform.position);
-        lineRenderer.SetPosition(1, transform.position);
+        lineRenderer.SetPosition(0, test1.transform.position + Vector3.up);
+        lineRenderer.SetPosition(1, scarf.position + (Vector3.down * 2));
         distanceJoint.connectedAnchor = test1.transform.position;
         distanceJoint.enabled = true;
         lineRenderer.enabled = true;
