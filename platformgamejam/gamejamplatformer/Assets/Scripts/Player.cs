@@ -23,23 +23,27 @@ public class Player : MonoBehaviour
     string readHorizontal;
     string jumpButton;
     string climbButton;
+    string boostButton;
     float horizontal;
     bool isGrounded;
     int layerMask;
     int jumpsRemaining = 1;
     bool falling = false;
     float fallTimer;
-   
+    bool boost;
+
     public Vector2 StartingPosition => startingPosition;
 
     void Start()
     {
+
         rigidbody = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
         spriteRenderer= GetComponent<SpriteRenderer>();
         readHorizontal = $"PHorizontal";
         jumpButton = $"PJump";
         climbButton = $"PClimb";
+        boostButton = $"PBoost";
         layerMask = LayerMask.GetMask("Default");
         startingPosition = transform.position;
     }
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour
         UpdateAnimator();
         FlipDirection();
         IsFalling();
+        ShouldBoost();
         if(ShouldClimb()) 
         {
             WallClimb();
@@ -73,6 +78,19 @@ public class Player : MonoBehaviour
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y - downForce);
         }
       
+    }
+
+    private void ShouldBoost()
+    {
+        var grapple = GetComponent<Grappling>();
+        if (grapple.isGrappling && Input.GetButtonDown(boostButton))
+        {
+            boost = true;
+        }
+        else
+        {
+            boost = false;
+        }
     }
 
     private void WallClimb()
@@ -130,7 +148,14 @@ public class Player : MonoBehaviour
             smoothnessMultiplier = horizontal == 0 ? airBreaking : airAcceleration;
         }
         float newHorizontal = Mathf.Lerp(rigidbody.velocity.x, horizontal * speed, Time.deltaTime * smoothnessMultiplier);
-        rigidbody.velocity = new Vector2(newHorizontal, rigidbody.velocity.y);
+        if (!boost)
+        {
+            rigidbody.velocity = new Vector2(newHorizontal, rigidbody.velocity.y);
+        }
+        else
+        {
+            rigidbody.velocity = new Vector2(newHorizontal * 5, rigidbody.velocity.y);
+        }
         
     }
     bool ShouldClimb()
@@ -180,4 +205,5 @@ public class Player : MonoBehaviour
     {
         transform.position = startingPosition;
     }
+
 }
