@@ -9,6 +9,7 @@ public class Grappling : MonoBehaviour
     [SerializeField] float maxDist = 4f;
     [SerializeField] Transform scarf;
 
+    Player player;
     new Animator animation;
     public List<GameObject> test;
     GameObject test1;
@@ -24,6 +25,7 @@ public class Grappling : MonoBehaviour
         distanceJoint.enabled = false;
         initialTimer = grappleTimer;
         animation = GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
 
     void Update()
