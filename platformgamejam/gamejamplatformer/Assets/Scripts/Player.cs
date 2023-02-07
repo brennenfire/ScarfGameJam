@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 1f;
     [SerializeField] float jumpVelocity = 1f;
     [SerializeField] float downPull = 1f;
+    [SerializeField] float boostMultiplier = 5f;
     [SerializeField] Transform feet;
     [SerializeField] Transform leftSensor;
     [SerializeField] Transform rightSensor;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     string jumpButton;
     string climbButton;
     string boostButton;
+    string wallJump;
     float horizontal;
     bool isGrounded;
     int layerMask;
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour
     bool falling = false;
     float fallTimer;
     bool boost;
-
+   
     public Vector2 StartingPosition => startingPosition;
 
     void Start()
@@ -44,6 +46,7 @@ public class Player : MonoBehaviour
         jumpButton = $"PJump";
         climbButton = $"PClimb";
         boostButton = $"PBoost";
+        wallJump = $"PWallJump";
         layerMask = LayerMask.GetMask("Default");
         startingPosition = transform.position;
     }
@@ -78,6 +81,11 @@ public class Player : MonoBehaviour
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y - downForce);
         }
       
+    }
+
+   void WallJump()
+    {
+        
     }
 
     private void ShouldBoost()
@@ -154,7 +162,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            rigidbody.velocity = new Vector2(newHorizontal * 5, rigidbody.velocity.y);
+            rigidbody.velocity = new Vector2(newHorizontal * boostMultiplier, rigidbody.velocity.y);
         }
         
     }
