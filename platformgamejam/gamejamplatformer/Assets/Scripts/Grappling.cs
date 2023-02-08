@@ -35,15 +35,7 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
     void Update()
     {
         animation.SetBool("Swing", isGrappling);
-        foreach (var gObject in test)
-        {
-            var dist = Vector2.Distance(transform.position, gObject.transform.position);
-            var isBelow = (gObject.transform.position.y - transform.position.y) > 0;
-            if (dist < maxDist && isBelow)
-            {
-                test1 = gObject;
-            }
-        }
+        CheckClosestPlatform();
         if (isGrappling)
         {
             grappleTimer -= Time.deltaTime;
@@ -61,7 +53,21 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
             lineRenderer.SetPosition(1, scarf.position + Vector3.down);
         }
     }
-    private void DontGrapple()
+
+    void CheckClosestPlatform()
+    {
+        foreach (var gObject in test)
+        {
+            var dist = Vector2.Distance(transform.position, gObject.transform.position);
+            var isBelow = (gObject.transform.position.y - transform.position.y) > 0;
+            if (dist < maxDist && isBelow)
+            {
+                test1 = gObject;
+            }
+        }
+    }
+
+    public void DontGrapple()
     {
         distanceJoint.enabled = false;
         lineRenderer.enabled = false;
@@ -70,7 +76,7 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
         test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = false;
     }
 
-    private bool ShouldntGrapple()
+    bool ShouldntGrapple()
     {
         return Input.GetMouseButtonUp(0) || grappleTimer <= 0;
     }

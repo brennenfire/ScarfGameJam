@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     int jumpsRemaining = 1;
     bool falling = false;
     bool boost;
-    bool canWallJump = false;
+    //bool canWallJump = false;
     int boostCounter = 1;
 
     public Vector2 StartingPosition => startingPosition;
@@ -63,10 +63,10 @@ public class Player : MonoBehaviour
         ShouldBoost();
         if(ShouldClimb()) 
         {
-            if(canWallJump) 
-            {
-                WallJump();
-            }
+            //if(canWallJump) 
+            //{
+            WallJump();
+            //}
             WallClimb();
         }
         if (ShouldStartJump() && isGrounded)
@@ -191,7 +191,7 @@ public class Player : MonoBehaviour
 
     bool ShouldClimb()
     {
-        canWallJump = true;
+        //canWallJump = true;
         //var input = Input.GetButtonDown(climbButton);
         //if (input)
         //{
