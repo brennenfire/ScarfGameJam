@@ -9,8 +9,13 @@ public class KillOnEnter : MonoBehaviour
         var player = collision.collider.GetComponent<Player>();
         if (player != null)
         {
-            player.GetComponent<Grappling>().DontGrapple();
-            player.ResetToStart();
+            BackToStart(player);
         }
+    }
+
+    public static void BackToStart(Player player)
+    {
+        player.GetComponent<Grappling>().DontGrapple();
+        player.ResetToStart();
     }
 }
