@@ -14,8 +14,8 @@ TagManager:
   - UI
   - Player
   - Grappleable
-  - 
-  - 
+  - Background
+  - Ground
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer 1
+    uniqueID: 1291496001
     locked: 0

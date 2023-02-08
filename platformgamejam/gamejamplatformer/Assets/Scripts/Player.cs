@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         climbButton = $"PClimb";
         boostButton = $"PBoost";
         wallJump = $"PWallJump";
-        layerMask = LayerMask.GetMask("Default");
+        layerMask = LayerMask.GetMask("Ground");
         startingPosition = transform.position;
     }
 
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             }
             WallClimb();
         }
-        if (ShouldStartJump())
+        if (ShouldStartJump() && isGrounded)
         {
             Jump();
         }
@@ -142,10 +142,12 @@ public class Player : MonoBehaviour
     void Jump()
     {
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpVelocity);
+        /*
         if(horizontal < 0)
         {
             transform.GetComponent<Collider2D>().offset += Vector2.right;
         }
+        */
         jumpsRemaining--;
     }
 
@@ -190,8 +192,7 @@ public class Player : MonoBehaviour
     bool ShouldClimb()
     {
         canWallJump = true;
-        var input = Input.GetButtonDown(climbButton);
-
+        //var input = Input.GetButtonDown(climbButton);
         //if (input)
         //{
             if (isGrounded)
