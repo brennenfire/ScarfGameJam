@@ -55,17 +55,18 @@ public class Lever : MonoBehaviour
 
     IEnumerator LeverTimer()
     {
-        yield return new WaitForSeconds(3f);
         if (startingPosition)
         {
+            Debug.Log("temp up");
             isUp = true;
-            TurnLever();
         }
         else
         {
+            Debug.Log("temp down");
             isUp = false;
-            TurnLever();
         }
+        yield return new WaitForSeconds(3f);
+        TurnLever();
     }
 
     
