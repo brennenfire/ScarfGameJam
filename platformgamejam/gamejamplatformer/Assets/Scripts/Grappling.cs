@@ -15,8 +15,8 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
     EventSystem events;
     Player player;
     new Animator animation;
-    public List<GameObject> test;
-    GameObject test1;
+    public List<GameObject> grappleList;
+    GameObject grapple;
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
     float initialTimer;
@@ -56,13 +56,13 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
 
     void CheckClosestPlatform()
     {
-        foreach (var gObject in test)
+        foreach (var gObject in grappleList)
         {
             var dist = Vector2.Distance(transform.position, gObject.transform.position);
             var isBelow = (gObject.transform.position.y - transform.position.y) > 0;
             if (dist < maxDist && isBelow)
             {
-                test1 = gObject;
+                grapple = gObject;
             }
         }
     }
@@ -73,9 +73,9 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
         lineRenderer.enabled = false;
         isGrappling = false;
         grappleTimer = initialTimer;
-        if (test1 != null)
+        if (grapple != null)
         {
-            test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = false;
+            grapple.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
@@ -87,21 +87,21 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
     void Grapple()
     {
         //Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        lineRenderer.SetPosition(0, test1.transform.position + Vector3.up);
+        lineRenderer.SetPosition(0, grapple.transform.position + Vector3.up);
         lineRenderer.SetPosition(1, scarf.position + (Vector3.down * 2));
-        distanceJoint.connectedAnchor = test1.transform.position;
+        distanceJoint.connectedAnchor = grapple.transform.position;
         distanceJoint.enabled = true;
         lineRenderer.enabled = true;
         isGrappling = true;
-        test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = true;
+        grapple.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = true;
     }
 
     bool ShouldGrapple()
     {
         return Input.GetMouseButtonDown(0)
             && grappleTimer > 0
-            && test1 != null
-            && Vector2.Distance(transform.position, test1.transform.position) < maxDist;
+            && grapple != null
+            && Vector2.Distance(transform.position, grapple.transform.position) < maxDist;
     }
 
     /*
