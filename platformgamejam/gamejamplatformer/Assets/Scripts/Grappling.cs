@@ -73,7 +73,10 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
         lineRenderer.enabled = false;
         isGrappling = false;
         grappleTimer = initialTimer;
-        test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = false;
+        if (test1 != null)
+        {
+            test1.GetComponentInChildren<Scarf>().GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 
     bool ShouldntGrapple()

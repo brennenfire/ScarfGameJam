@@ -44,7 +44,8 @@ public class Menu : MonoBehaviour
     }
     public void ResetButtonClicked()
     {
-        player.ResetToStart();
+        //player.ResetToStart();
+        KillOnEnter.BackToStart(player);
     }
 
     public void Quit()
