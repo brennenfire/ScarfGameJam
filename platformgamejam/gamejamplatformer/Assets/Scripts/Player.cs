@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
         else
         {
             fallTimer = Time.deltaTime;
-            var downForce = downPull * fallTimer * fallTimer;
+            var downForce = downPull * fallTimer;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y - downForce);
         }
       
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         Debug.Log("walljump");
         if (Input.GetButtonDown(jumpButton))
         {
-            rigidbody.velocity = new Vector2(-horizontal * jumpVelocity, jumpVelocity * 1f);
+            rigidbody.velocity = new Vector2(-horizontal * jumpVelocity * 1.5f, jumpVelocity * 1.2f);
 
         }
    }

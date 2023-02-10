@@ -44,9 +44,12 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
         {
             Grapple();
         }
-        if (ShouldntGrapple())
+        if (grapple != null)
         {
-            DontGrapple();
+            if (ShouldntGrapple())
+            {
+                DontGrapple();
+            }
         }
         if (distanceJoint.enabled)
         {
@@ -60,7 +63,7 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
         {
             var dist = Vector2.Distance(transform.position, gObject.transform.position);
             var isBelow = (gObject.transform.position.y - transform.position.y) > 0;
-            if (dist < maxDist && isBelow)
+            if (dist < maxDist && isBelow && gObject.activeSelf == true)
             {
                 grapple = gObject;
             }
@@ -81,7 +84,7 @@ public class Grappling : MonoBehaviour//, IPointerClickHandler
 
     bool ShouldntGrapple()
     {
-        return Input.GetMouseButtonUp(0) || grappleTimer <= 0;
+        return Input.GetMouseButtonUp(0) || grappleTimer <= 0 || grapple.activeSelf == false;
     }
 
     void Grapple()
