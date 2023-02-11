@@ -238,4 +238,9 @@ public class Player : MonoBehaviour
         transform.position = startingPosition;
     }
 
+
+    public void HitLever()
+    {
+        var lever = GetComponent<Lever>();
+    }
 }
