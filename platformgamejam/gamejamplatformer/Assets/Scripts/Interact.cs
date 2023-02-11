@@ -13,7 +13,7 @@ public class Interact : MonoBehaviour
     void Start()
     {
         interactionButton = $"Interact";
-        layerMask = LayerMask.GetMask("Lever");
+        layerMask = LayerMask.GetMask("Interactable");
     }
 
     void Update()
@@ -21,14 +21,8 @@ public class Interact : MonoBehaviour
         var hit = Physics2D.OverlapCircle(player.transform.position, 1f, layerMask);
         if(Input.GetButtonDown(interactionButton)) 
         {
-            Debug.Log("interact1");
             if (hit != null)
             {
-                Debug.Log("interact2");
-                /*
-                var obj = GetComponent<IInteract>();
-                obj.Interact();
-                */
                 hit.GetComponent<IInteract>().Interact();
             }
         }

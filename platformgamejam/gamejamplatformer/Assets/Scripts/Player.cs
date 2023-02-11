@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     float horizontal;
     float fallTimer;
     bool isGrounded;
-    int layerMask;
+    int layerMaskGrounded;
     int jumpsRemaining = 1;
     bool falling = false;
     bool boost;
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         climbButton = $"PClimb";
         boostButton = $"PBoost";
         wallJump = $"PWallJump";
-        layerMask = LayerMask.GetMask("Ground");
+        layerMaskGrounded = LayerMask.GetMask("Ground");
         startingPosition = transform.position;
     }
 
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
       
     }
 
-   void WallJump()
+    void WallJump()
    {
         Debug.Log("walljump");
         if (Input.GetButtonDown(jumpButton))
@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
 
     void UpdateIsGrounded()
     {
-        var hit = Physics2D.OverlapCircle(feet.position, 0.1f, layerMask);
+        var hit = Physics2D.OverlapCircle(feet.position, 0.1f, layerMaskGrounded);
         isGrounded = hit != null;
     }
 

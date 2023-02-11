@@ -15,6 +15,7 @@ public class NewLever : MonoBehaviour, IInteract
     SpriteRenderer sprite;
     Sprite leverUp;
     bool isUp = true;
+    bool currentlyTiming = false;
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class NewLever : MonoBehaviour, IInteract
         {
             TurnLever();
         }
-        else if (isTimedLever)
+        else if (isTimedLever && currentlyTiming == false)
         {
             StartCoroutine(LeverTimer());
         }
@@ -52,6 +53,7 @@ public class NewLever : MonoBehaviour, IInteract
 
     IEnumerator LeverTimer()
     {
+        currentlyTiming = true;
         if (startingPosition)
         {
             Debug.Log("temp up");
@@ -76,6 +78,7 @@ public class NewLever : MonoBehaviour, IInteract
         sprite.sprite = null;
         yield return new WaitForSeconds(0.5f);
         sprite.sprite = initialSprite;
+        currentlyTiming = false;
         TurnLever();
     }
 }
