@@ -760,7 +760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5602440224041257453, guid: 1ebd30a5c9753d0408074c31274b963c, type: 3}
       propertyPath: m_Size.y
-      value: 2.163538
+      value: 2.6635385
       objectReference: {fileID: 0}
     - target: {fileID: 5602440224041257454, guid: 1ebd30a5c9753d0408074c31274b963c, type: 3}
       propertyPath: m_Name
@@ -776,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5602440224041257455, guid: 1ebd30a5c9753d0408074c31274b963c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1680489
+      value: 1.9180489
       objectReference: {fileID: 0}
     - target: {fileID: 5602440224041257455, guid: 1ebd30a5c9753d0408074c31274b963c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8815,7 +8815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3642764052913091694, guid: e84e766ba30e02c41b0867d66662d718, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.632328
+      value: -1.69
       objectReference: {fileID: 0}
     - target: {fileID: 3642764052913091694, guid: e84e766ba30e02c41b0867d66662d718, type: 3}
       propertyPath: m_LocalPosition.z
@@ -30978,7 +30978,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 9a75281f84ed55440bb5e367b31d1bbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -37399,8 +37399,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 2617245695
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.60784316}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -40861,7 +40861,8 @@ GameObject:
   - component: {fileID: 2104705060}
   - component: {fileID: 2104705062}
   - component: {fileID: 2104705061}
-  m_Layer: 0
+  - component: {fileID: 2104705063}
+  m_Layer: 10
   m_Name: Door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40961,6 +40962,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2104705063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104705059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88df1f4fed236e4d9ca38fc78b2bedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlyExamine: 1
+  isPickup: 0
+  textBox: {fileID: 824957439}
+  image: {fileID: 59190589}
+  text:
+  - A door.
+  - There's no handle...
 --- !u!1001 &2105242866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42216,11 +42236,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3544979274452593121, guid: f38104c82207759438de92acbee7d18b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -66.66
+      value: -82.05
       objectReference: {fileID: 0}
     - target: {fileID: 3544979274452593121, guid: f38104c82207759438de92acbee7d18b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.96
+      value: 11.97
       objectReference: {fileID: 0}
     - target: {fileID: 3544979274452593121, guid: f38104c82207759438de92acbee7d18b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42550,7 +42570,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1105617325, guid: 5caf2da69d3172048be4fb01935b7d08, type: 3}
       propertyPath: timer
-      value: 4
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1105617325, guid: 5caf2da69d3172048be4fb01935b7d08, type: 3}
       propertyPath: isTimedLever

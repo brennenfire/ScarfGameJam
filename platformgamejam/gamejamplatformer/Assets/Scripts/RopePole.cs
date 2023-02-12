@@ -22,15 +22,13 @@ public class RopePole : MonoBehaviour, IInteract
             image.enabled = true;
             StartCoroutine(TurnOffBox());
         }
-        
-        if(bigRope.activeSelf == false) 
+        else if(bigRope.activeSelf == false) 
         {
             animator.SetTrigger("End");
             endText.text = "Thank for you playing this demo.";
             StartCoroutine(TurnOffGame());
         }
-        
-        else
+        else if(smallRope.activeSelf == true || bigRope.activeSelf == true)
         {
             textBox.text = "It's a rope post.";
             image.enabled = true;
