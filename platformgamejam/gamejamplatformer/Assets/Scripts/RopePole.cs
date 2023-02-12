@@ -25,7 +25,7 @@ public class RopePole : MonoBehaviour, IInteract
         else if(bigRope.activeSelf == false) 
         {
             animator.SetTrigger("End");
-            endText.text = "Thank you playing this demo.";
+            endText.text = "Thank you for playing this demo.";
             StartCoroutine(TurnOffGame());
         }
         else if(smallRope.activeSelf == true || bigRope.activeSelf == true)
